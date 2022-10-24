@@ -5,19 +5,16 @@ export default function UseTransitionPage() {
   const [isPending, startTransition] = useTransition();
 
   useEffect(()=>{
-    startTransition(async ()=>{
-      let responseJsonData = await fetch('https://jsonplaceholder.typicode.com/posts')
-          .then((response) => response.json())
+    startTransition(()=>{
+      fetch('https://jsonplaceholder.typicode.com/posts')
+          .then((response) => {
+            console.log(response);
+            return response.json();
+          })
           .then((json) => {
-            console.log(json);
-            responseJsonData = json;
-            console.log(jsonData);
-            return json;
+            setJsonData(json);
           })
           .catch((err)=>console.log(err));
-      setJsonData(responseJsonData);
-      console.log(jsonData);
-      console.log(responseJsonData);
     });
   }, []);
 
@@ -29,7 +26,7 @@ export default function UseTransitionPage() {
     return (
       <ul>
         {jsonData.map(({body, id, title})=>{
-          <li key={id}>
+          return <li key={id}>
             <h3>{title}</h3>
             <p>{body}</p>
           </li>;
@@ -38,6 +35,3 @@ export default function UseTransitionPage() {
     );
   }
 }
-
-
-// useState,
