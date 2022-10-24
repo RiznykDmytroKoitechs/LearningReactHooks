@@ -17,5 +17,6 @@ module.exports = {
   ],
   'rules': {
     'require-jsdoc': 0,
+    'react/prop-types': 0,
   },
 };
